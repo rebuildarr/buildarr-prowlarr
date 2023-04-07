@@ -87,26 +87,26 @@ The following sections cover comprehensive configuration of a Prowlarr instance.
 
 Note that these documents do not show how you *should* configure a Prowlarr instance. Rather, they show how you *can* configure a Prowlarr instance the way you want with Buildarr. For more information on how to optimally configure Prowlarr, you can refer to the excellent guides from [WikiArr](https://wiki.servarr.com/prowlarr) and [TRaSH-Guides](https://trash-guides.info/Prowlarr/).
 
-* [Host Configuration](https://buildarr.github.io/plugins/prowlarr/configuration/host)
+* [Host Configuration](configuration/host.md)
 * Settings
     * Indexers
-        * [Indexers](https://buildarr.github.io/plugins/prowlarr/configuration/settings/indexers/indexers)
-        * [Proxies](https://buildarr.github.io/plugins/prowlarr/configuration/settings/indexers/proxies)
+        * [Indexers](configuration/settings/indexers/indexers.md)
+        * [Proxies](configuration/settings/indexers/proxies.md)
     * Apps
-        * [Applications](https://buildarr.github.io/plugins/prowlarr/configuration/settings/apps/applications)
-        * [Sync Profiles](https://buildarr.github.io/plugins/prowlarr/configuration/settings/apps/sync-profiles)
-    * [Download Clients](https://buildarr.github.io/plugins/prowlarr/configuration/settings/download-clients)
-    * [Notifications](https://buildarr.github.io/plugins/prowlarr/configuration/settings/notifications)
-    * [Tags](https://buildarr.github.io/plugins/prowlarr/configuration/settings/tags)
-    * [General](https://buildarr.github.io/plugins/prowlarr/configuration/settings/general)
-    * [UI](https://buildarr.github.io/plugins/prowlarr/configuration/settings/ui)
+        * [Applications](configuration/settings/apps/applications.md)
+        * [Sync Profiles](configuration/settings/apps/sync-profiles.md)
+    * [Download Clients](configuration/settings/download-clients.md)
+    * [Notifications](configuration/settings/notifications.md)
+    * [Tags](configuration/settings/tags.md)
+    * [General](configuration/settings/general.md)
+    * [UI](configuration/settings/ui.md)
 
 ## Dumping an existing Prowlarr instance configuration
 
 Buildarr is capable of dumping a running Prowlarr instance's configuration.
 
 ```bash
-$ buildarr prowlarr dump-config http://localhost:8989 > prowlarr.yml
+$ buildarr prowlarr dump-config http://localhost:9696 > prowlarr.yml
 Prowlarr instance API key: <Paste API key here>
 ```
 
