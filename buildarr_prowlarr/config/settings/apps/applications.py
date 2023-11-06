@@ -193,6 +193,7 @@ class Application(ProwlarrConfigBase):
         tag_ids: Mapping[str, int],
         application_name: str,
     ) -> None:
+        api_schema_dict = api_schema.to_dict()
         set_attrs = self.get_create_remote_attrs(
             tree=tree,
             remote_map=self._get_base_remote_map(api_schema, tag_ids) + self._remote_map,
@@ -202,9 +203,9 @@ class Application(ProwlarrConfigBase):
         }
         set_attrs["fields"] = [
             ({**f, "value": field_values[f["name"]]} if f["name"] in field_values else f)
-            for f in api_schema.to_dict()["fields"]
+            for f in api_schema_dict["fields"]
         ]
-        remote_attrs = {"name": application_name, **api_schema, **set_attrs}
+        remote_attrs = {**api_schema_dict, "name": application_name, **set_attrs}
         with prowlarr_api_client(secrets=secrets) as api_client:
             prowlarr.ApplicationApi(api_client).create_applications(
                 application_resource=prowlarr.ApplicationResource.from_dict(remote_attrs),
