@@ -26,13 +26,13 @@ import prowlarr
 
 from buildarr.config import RemoteMapEntry
 from buildarr.state import state
-from buildarr.types import BaseEnum, InstanceName, NonEmptyStr, Password
+from buildarr.types import BaseEnum, InstanceName, LowerCaseNonEmptyStr, NonEmptyStr, Password
 from pydantic import AnyHttpUrl, Field, SecretStr, validator
 from typing_extensions import Annotated, Self
 
 from ....api import prowlarr_api_client
 from ....secrets import ProwlarrSecrets
-from ....types import ArrApiKey, LowerCaseNonEmptyStr
+from ....types import ArrApiKey
 from ...types import ProwlarrConfigBase
 
 logger = getLogger(__name__)
@@ -394,7 +394,7 @@ class RadarrApplication(Application):
     def _resolve(self) -> Self:
         if self.instance_name:
             resolved = self.copy(deep=True)
-            resolved.api_key = state.secrets.radarr[  # type: ignore[attr-defined]
+            resolved.api_key = state.instance_secrets["radarr"][  # type: ignore[attr-defined]
                 self.instance_name
             ].api_key.get_secret_value()
             return resolved
@@ -529,7 +529,7 @@ class SonarrApplication(Application):
     def _resolve(self) -> Self:
         if self.instance_name:
             resolved = self.copy(deep=True)
-            resolved.api_key = state.secrets.sonarr[  # type: ignore[attr-defined]
+            resolved.api_key = state.instance_secrets["sonarr"][  # type: ignore[attr-defined]
                 self.instance_name
             ].api_key.get_secret_value()
             return resolved
