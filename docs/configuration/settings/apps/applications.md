@@ -35,6 +35,11 @@
         - api_key
         - sync_categories
 
+##### ::: buildarr_prowlarr.config.settings.apps.applications.ArrApplication
+    options:
+      members:
+        - sync_reject_blocklisted_torrent_hashes
+
 ## Mylar
 
 ##### ::: buildarr_prowlarr.config.settings.apps.applications.MylarApplication
@@ -54,6 +59,11 @@
         - api_key
         - sync_categories
 
+##### ::: buildarr_prowlarr.config.settings.apps.applications.ArrApplication
+    options:
+      members:
+        - sync_reject_blocklisted_torrent_hashes
+
 ## Readarr
 
 ##### ::: buildarr_prowlarr.config.settings.apps.applications.ReadarrApplication
@@ -62,6 +72,11 @@
         - type
         - api_key
         - sync_categories
+
+##### ::: buildarr_prowlarr.config.settings.apps.applications.ArrApplication
+    options:
+      members:
+        - sync_reject_blocklisted_torrent_hashes
 
 ## Sonarr
 
@@ -75,6 +90,11 @@
         - anime_sync_categories
         - sync_anime_standard_format_search
 
+##### ::: buildarr_prowlarr.config.settings.apps.applications.ArrApplication
+    options:
+      members:
+        - sync_reject_blocklisted_torrent_hashes
+
 ## Whisparr
 
 ##### ::: buildarr_prowlarr.config.settings.apps.applications.WhisparrApplication
@@ -83,3 +103,8 @@
         - type
         - api_key
         - sync_categories
+
+##### ::: buildarr_prowlarr.config.settings.apps.applications.ArrApplication
+    options:
+      members:
+        - sync_reject_blocklisted_torrent_hashes
