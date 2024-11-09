@@ -20,7 +20,7 @@ Prowlarr plugin Usenet download client definitions.
 from __future__ import annotations
 
 from logging import getLogger
-from typing import Dict, List, Literal, Mapping, Optional, Set
+from typing import ClassVar, Dict, List, Literal, Mapping, Optional, Set
 
 from buildarr.config import RemoteMapEntry
 from buildarr.types import BaseEnum, LowerCaseNonEmptyStr, NonEmptyStr, Password, Port
@@ -150,8 +150,8 @@ class DownloadstationUsenetDownloadClient(UsenetDownloadClient):
     Leave blank, set to `null` or undefined to use the default download client location.
     """
 
-    _implementation: str = "UsenetDownloadStation"
-    _remote_map: List[RemoteMapEntry] = [
+    _implementation: ClassVar[str] = "UsenetDownloadStation"
+    _remote_map: ClassVar[List[RemoteMapEntry]] = [
         ("host", "host", {"is_field": True}),
         ("port", "port", {"is_field": True}),
         ("use_ssl", "useSsl", {"is_field": True}),
@@ -245,7 +245,7 @@ class NzbgetDownloadClient(UsenetDownloadClient):
     with the selected Prowlarr categories.
     """
 
-    _implementation: str = "Nzbget"
+    _implementation: ClassVar[str] = "Nzbget"
 
     @classmethod
     def _get_base_remote_map(
@@ -338,7 +338,7 @@ class NzbvortexDownloadClient(UsenetDownloadClient):
     with the selected Prowlarr categories.
     """
 
-    _implementation: str = "NzbVortex"
+    _implementation: ClassVar[str] = "NzbVortex"
 
     @classmethod
     def _get_base_remote_map(
@@ -395,8 +395,8 @@ class PneumaticDownloadClient(UsenetDownloadClient):
     Folder from which `.strm` files will be imported by Drone.
     """
 
-    _implementation: str = "Pneumatic"
-    _remote_map: List[RemoteMapEntry] = [
+    _implementation: ClassVar[str] = "Pneumatic"
+    _remote_map: ClassVar[List[RemoteMapEntry]] = [
         ("nzb_folder", "nzbFolder", {"is_field": True}),
         ("strm_folder", "strmFolder", {"is_field": True}),
     ]
@@ -475,7 +475,7 @@ class SabnzbdDownloadClient(UsenetDownloadClient):
     with the selected Prowlarr categories.
     """
 
-    _implementation: str = "Sabnzbd"
+    _implementation: ClassVar[str] = "Sabnzbd"
 
     @classmethod
     def _get_base_remote_map(
@@ -548,5 +548,5 @@ class UsenetBlackholeDownloadClient(UsenetDownloadClient):
     Folder in which Prowlarr will store `.nzb` files.
     """
 
-    _implementation: str = "UsenetBlackhole"
-    _remote_map: List[RemoteMapEntry] = [("nzb_folder", "nzbFolder", {"is_field": True})]
+    _implementation: ClassVar[str] = "UsenetBlackhole"
+    _remote_map: ClassVar[List[RemoteMapEntry]] = [("nzb_folder", "nzbFolder", {"is_field": True})]

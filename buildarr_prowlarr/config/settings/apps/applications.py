@@ -20,13 +20,13 @@ Prowlarr plugin application link settings configuration.
 from __future__ import annotations
 
 from logging import getLogger
-from typing import Any, Dict, Iterable, List, Literal, Mapping, Optional, Set, Union, cast
+from typing import Any, ClassVar, Dict, Iterable, List, Literal, Mapping, Optional, Set, Union, cast
 
 import prowlarr
 
 from buildarr.config import RemoteMapEntry
 from buildarr.state import state
-from buildarr.types import BaseEnum, InstanceName, LowerCaseNonEmptyStr, NonEmptyStr, Password
+from buildarr.types import BaseEnum, InstanceReference, LowerCaseNonEmptyStr, NonEmptyStr, Password
 from packaging.version import Version
 from pydantic import AnyHttpUrl, Field, SecretStr, validator
 from typing_extensions import Annotated, Self
@@ -97,8 +97,8 @@ class Application(ProwlarrConfigBase):
     This is used to associate the application with indexers.
     """
 
-    _implementation: str
-    _remote_map: List[RemoteMapEntry] = []
+    _implementation: ClassVar[str]
+    _remote_map: ClassVar[List[RemoteMapEntry]] = []
 
     @classmethod
     def _get_base_remote_map(
@@ -153,7 +153,7 @@ class Application(ProwlarrConfigBase):
                 next(
                     (
                         f
-                        for f in cast(List[prowlarr.Field], api_schema.fields)
+                        for f in cast(List[prowlarr.ContractField], api_schema.fields)
                         if f.name == "syncCategories"
                     ),
                 ).select_options,
@@ -335,8 +335,8 @@ class LazylibrarianApplication(Application):
     Default sync category values for this application type.
     """
 
-    _implementation: str = "LazyLibrarian"
-    _remote_map: List[RemoteMapEntry] = [("api_key", "apiKey", {"is_field": True})]
+    _implementation: ClassVar[str] = "LazyLibrarian"
+    _remote_map: ClassVar[List[RemoteMapEntry]] = [("api_key", "apiKey", {"is_field": True})]
 
 
 class LidarrApplication(ArrApplication):
@@ -365,8 +365,8 @@ class LidarrApplication(ArrApplication):
     Default sync category values for this application type.
     """
 
-    _implementation: str = "Lidarr"
-    _remote_map: List[RemoteMapEntry] = [("api_key", "apiKey", {"is_field": True})]
+    _implementation: ClassVar[str] = "Lidarr"
+    _remote_map: ClassVar[List[RemoteMapEntry]] = [("api_key", "apiKey", {"is_field": True})]
 
 
 class MylarApplication(Application):
@@ -389,8 +389,8 @@ class MylarApplication(Application):
     Default sync category values for this application type.
     """
 
-    _implementation: str = "Mylar"
-    _remote_map: List[RemoteMapEntry] = [("api_key", "apiKey", {"is_field": True})]
+    _implementation: ClassVar[str] = "Mylar"
+    _remote_map: ClassVar[List[RemoteMapEntry]] = [("api_key", "apiKey", {"is_field": True})]
 
 
 class RadarrApplication(ArrApplication):
@@ -409,7 +409,7 @@ class RadarrApplication(ArrApplication):
     Type value associated with this kind of application.
     """
 
-    instance_name: Optional[InstanceName] = Field(None, plugin="radarr")
+    instance_name: Optional[InstanceReference] = Field(None, plugin="radarr")
     """
     The name of the Radarr instance within Buildarr, if adding
     a Buildarr-defined Radarr instance to this Prowlarr instance.
@@ -438,8 +438,8 @@ class RadarrApplication(ArrApplication):
     Default sync category values for this application type.
     """
 
-    _implementation: str = "Radarr"
-    _remote_map: List[RemoteMapEntry] = [("api_key", "apiKey", {"is_field": True})]
+    _implementation: ClassVar[str] = "Radarr"
+    _remote_map: ClassVar[List[RemoteMapEntry]] = [("api_key", "apiKey", {"is_field": True})]
 
     @validator("api_key")
     def validate_api_key(
@@ -489,8 +489,8 @@ class ReadarrApplication(ArrApplication):
     Default sync category values for this application type.
     """
 
-    _implementation: str = "Readarr"
-    _remote_map: List[RemoteMapEntry] = [("api_key", "apiKey", {"is_field": True})]
+    _implementation: ClassVar[str] = "Readarr"
+    _remote_map: ClassVar[List[RemoteMapEntry]] = [("api_key", "apiKey", {"is_field": True})]
 
 
 class SonarrApplication(ArrApplication):
@@ -509,7 +509,7 @@ class SonarrApplication(ArrApplication):
     Type value associated with this kind of application.
     """
 
-    instance_name: Optional[InstanceName] = Field(None, plugin="sonarr")
+    instance_name: Optional[InstanceReference] = Field(None, plugin="sonarr")
     """
     The name of the Sonarr instance within Buildarr, if adding
     a Buildarr-defined Sonarr instance to this Prowlarr instance.
@@ -549,7 +549,7 @@ class SonarrApplication(ArrApplication):
     *New in version 0.4.0.*
     """
 
-    _implementation: str = "Sonarr"
+    _implementation: ClassVar[str] = "Sonarr"
 
     @validator("api_key")
     def validate_api_key(
@@ -625,12 +625,12 @@ class WhisparrApplication(ArrApplication):
     Default sync category values for this application type.
     """
 
-    _implementation: str = "Whisparr"
-    _remote_map: List[RemoteMapEntry] = [("api_key", "apiKey", {"is_field": True})]
+    _implementation: ClassVar[str] = "Whisparr"
+    _remote_map: ClassVar[List[RemoteMapEntry]] = [("api_key", "apiKey", {"is_field": True})]
 
 
 APPLICATION_TYPE_MAP = {
-    application_type._implementation: application_type  # type: ignore[attr-defined]
+    str(application_type._implementation): application_type  # type: ignore[attr-defined]
     for application_type in (
         LazylibrarianApplication,
         LidarrApplication,
@@ -724,7 +724,7 @@ class ApplicationsSettings(ProwlarrConfigBase):
     on WikiArr.
     """
 
-    delete_unmanaged: bool = False
+    delete_unmanaged: Annotated[bool, Field] = False
     """
     Automatically delete application links not configured in Buildarr.
 

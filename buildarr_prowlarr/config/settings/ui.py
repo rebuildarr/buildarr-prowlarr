@@ -19,7 +19,7 @@ Prowlarr plugin UI settings configuration.
 
 from __future__ import annotations
 
-from typing import List
+from typing import ClassVar, List
 
 import prowlarr
 
@@ -202,7 +202,7 @@ class ProwlarrUISettings(ProwlarrConfigBase):
     Specify the language using the two-character language code.
     """
 
-    _remote_map: List[RemoteMapEntry] = [
+    _remote_map: ClassVar[List[RemoteMapEntry]] = [
         ("first_day_of_week", "firstDayOfWeek", {}),
         ("week_column_header", "calendarWeekColumnHeader", {}),
         ("short_date_format", "shortDateFormat", {}),

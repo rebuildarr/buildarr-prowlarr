@@ -19,14 +19,15 @@ Prowlarr plugin app sync profile configuration.
 
 from __future__ import annotations
 
+from dataclasses import Field
 from logging import getLogger
-from typing import Any, Dict, List, Mapping
+from typing import Any, ClassVar, Dict, List, Mapping
 
 import prowlarr
 
 from buildarr.config import RemoteMapEntry
 from pydantic import PositiveInt
-from typing_extensions import Self
+from typing_extensions import Annotated, Self
 
 from ....api import prowlarr_api_client
 from ....secrets import ProwlarrSecrets
@@ -60,7 +61,7 @@ class SyncProfile(ProwlarrConfigBase):
     The minimum number of seeders required by the application to download a release.
     """
 
-    _remote_map: List[RemoteMapEntry] = [
+    _remote_map: ClassVar[List[RemoteMapEntry]] = [
         ("enable_rss", "enableRss", {}),
         ("enable_interactive_search", "enableInteractiveSearch", {}),
         ("enable_automatic_search", "enableAutomaticSearch", {}),
@@ -148,7 +149,7 @@ class SyncProfilesSettings(ProwlarrConfigBase):
     on WikiArr.
     """
 
-    delete_unmanaged: bool = False
+    delete_unmanaged: Annotated[bool, Field] = False
     """
     Automatically delete indexer proxies not configured in Buildarr.
 

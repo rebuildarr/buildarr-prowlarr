@@ -150,7 +150,7 @@ class ProwlarrDownloadClientsSettings(ProwlarrConfigBase):
     ```
     """
 
-    delete_unmanaged: bool = False
+    delete_unmanaged: Annotated[bool, Field] = False
     """
     Automatically delete download clients not defined in Buildarr.
     """
