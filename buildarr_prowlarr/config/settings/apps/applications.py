@@ -409,7 +409,7 @@ class RadarrApplication(ArrApplication):
     Type value associated with this kind of application.
     """
 
-    instance_name: Annotated[Optional[str], InstanceReference(plugin_name="radarr")]
+    instance_name: Annotated[Optional[str], InstanceReference(plugin_name="radarr")] = None
     """
     The name of the Radarr instance within Buildarr, if adding
     a Buildarr-defined Radarr instance to this Prowlarr instance.
@@ -509,7 +509,7 @@ class SonarrApplication(ArrApplication):
     Type value associated with this kind of application.
     """
 
-    instance_name: Annotated[Optional[str], InstanceReference(plugin_name="sonarr")]
+    instance_name: Annotated[Optional[str], InstanceReference(plugin_name="sonarr")] = None
     """
     The name of the Sonarr instance within Buildarr, if adding
     a Buildarr-defined Sonarr instance to this Prowlarr instance.
