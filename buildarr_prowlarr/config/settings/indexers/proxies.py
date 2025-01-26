@@ -20,10 +20,10 @@ Prowlarr plugin indexer proxy configuration.
 from __future__ import annotations
 
 from logging import getLogger
-from typing import Any, ClassVar, Dict, List, Literal, Mapping, Optional, Set, Union
+from typing import (Any, ClassVar, Dict, List, Literal, Mapping, Optional, Set,
+                    Union)
 
 import prowlarr
-
 from buildarr.config import RemoteMapEntry
 from buildarr.types import NonEmptyStr, Port
 from pydantic import AnyHttpUrl, Field, PositiveInt, SecretStr
@@ -414,6 +414,7 @@ class ProxiesSettings(ProwlarrConfigBase):
     def from_remote(cls, secrets: ProwlarrSecrets) -> Self:
         with prowlarr_api_client(secrets=secrets) as api_client:
             api_proxies = prowlarr.IndexerProxyApi(api_client).list_indexer_proxy()
+            print(api_proxies)
             tag_ids: Dict[str, int] = (
                 {tag.label: tag.id for tag in prowlarr.TagApi(api_client).list_tag()}
                 if any(api_proxy.tags for api_proxy in api_proxies)
