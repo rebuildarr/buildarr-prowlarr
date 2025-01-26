@@ -422,7 +422,7 @@ class ProxiesSettings(ProwlarrConfigBase):
             )
         return cls(
             definitions={
-                api_proxy["name"]: PROXY_TYPE_MAP[  # type: ignore[attr-defined]
+                api_proxy.get("name"): PROXY_TYPE_MAP[  # type: ignore[attr-defined]
                     api_proxy.implementation.lower()
                 ]._from_remote(
                     tag_ids=tag_ids,
